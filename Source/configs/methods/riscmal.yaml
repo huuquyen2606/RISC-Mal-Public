@@ -1,0 +1,16 @@
+# Risk-Informed Selective Class-Incremental Learning (RISC-Mal) Configuration
+method: "riscmal"
+description: "Proposed framework with class-aware retention risk (R_c^t), margin sensitivity (S_{c,j}^t), soft protection mask (m^t), and imbalance calibration (\beta = 0.10)"
+params:
+  alpha: 0.5           # Balance factor \alpha between empirical degradation F_c^t and exposure imbalance I_c (\beta_R = 0.999, Eq. 3)
+  tau_p: 0.8           # Sensitivity threshold \tau_p for soft protection mask m^t (Eq. 5)
+  T_p: 0.2             # Temperature scaling parameter T_p for sigmoidal protection mask m_j^t = \sigma((\widehat{P}_j^t - \tau_p) / T_p) (Eq. 5)
+  lambda_sp: 0.1       # Weight \lambda_{SP} for Selective Representation Preservation loss \mathcal{L}_{SP} (Eq. 5/6)
+  lambda_kd: 0.1       # Weight \lambda_{KD} for Knowledge Distillation loss \mathcal{L}_{KD} (scale factor T_{KD}^2 = 4.0, Eq. 8)
+  T_kd: 2.0            # Softmax temperature T_{KD} for KD distillation (scale factor T_{KD}^2 = 4.0)
+  replay_ratio: 0.10   # Rehearsal memory retention ratio \rho = 10% (|M_c| = max(1, floor(\rho * n_c)))
+  use_sp: true         # Enable Selective Representation Preservation (\mathcal{L}_{SP})
+  use_ic: true         # Enable Incremental Classification Loss with Imbalance Calibration \beta = 0.10 (\mathcal{L}_{IC}, Eq. 7)
+  use_kd: true         # Enable Knowledge Distillation (\mathcal{L}_{KD})
+  protection_strategy: "risc_soft" # Options: risc_soft (m^t), topk_hard, uniform, freeze, fine_tuning
+  topk_ratio: 0.5      # Used only if protection_strategy is topk_hard

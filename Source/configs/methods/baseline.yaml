@@ -1,0 +1,5 @@
+# Baseline Strategy Configuration: w/o CIL (Naive Sequential Fine-Tuning)
+method: "baseline"
+description: "Sequential fine-tuning without continual learning (w/o CIL), serving as the empirical lower bound"
+params:
+  num_known_classes: 0

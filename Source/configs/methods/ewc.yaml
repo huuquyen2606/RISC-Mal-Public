@@ -1,0 +1,6 @@
+# Elastic Weight Consolidation (EWC) Configuration
+method: "ewc"
+description: "Online Elastic Weight Consolidation with diagonal Fisher information matrix"
+params:
+  lamda: 1000.0
+  fishermax: 0.0001

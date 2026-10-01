@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite our paper."
+title: "Risk-Informed Selective Class-Incremental Learning for Imbalanced Windows Malware Detection"
+authors:
+  - family-names: "Vo"
+    given-names: "Dang Khoa"
+    orcid: "https://orcid.org/0009-0007-2796-6920"
+    affiliation: "Information Security Laboratory, University of Information Technology, VNU-HCM"
+  - family-names: "Nguyen"
+    given-names: "Minh Tri"
+    orcid: "https://orcid.org/0009-0007-7402-096X"
+    affiliation: "Information Security Laboratory, University of Information Technology, VNU-HCM"
+  - family-names: "Nguyen"
+    given-names: "Huu Quyen"
+    orcid: "https://orcid.org/0000-0002-0065-9919"
+    affiliation: "Information Security Laboratory, University of Information Technology, VNU-HCM"
+  - family-names: "Pham"
+    given-names: "Van-Hau"
+    orcid: "https://orcid.org/0000-0003-3147-3356"
+    affiliation: "Information Security Laboratory, University of Information Technology, VNU-HCM"
+version: 1.0.0
+date-released: 2026-09-22
+url: "https://github.com/huuquyen2606/RISC-Mal-Public"
+keywords:
+  - malware-detection
+  - class-incremental-learning
+  - catastrophic-forgetting
+  - class-imbalance
+  - risk-informed-plasticity
+  - windows-pe
+preferred-citation:
+  type: article
+  title: "Risk-Informed Selective Class-Incremental Learning for Imbalanced Windows Malware Detection"
+  authors:
+    - family-names: "Vo"
+      given-names: "Dang Khoa"
+      orcid: "https://orcid.org/0009-0007-2796-6920"
+    - family-names: "Nguyen"
+      given-names: "Minh Tri"
+      orcid: "https://orcid.org/0009-0007-7402-096X"
+    - family-names: "Nguyen"
+      given-names: "Huu Quyen"
+      orcid: "https://orcid.org/0000-0002-0065-9919"
+    - family-names: "Pham"
+      given-names: "Van-Hau"
+      orcid: "https://orcid.org/0000-0003-3147-3356"
+  year: 2026

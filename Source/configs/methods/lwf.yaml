@@ -1,0 +1,6 @@
+# Learning without Forgetting (LwF) Configuration
+method: "lwf"
+description: "Knowledge Distillation on current task inputs from frozen teacher"
+params:
+  temperature: 2.0
+  lamda: 3.0

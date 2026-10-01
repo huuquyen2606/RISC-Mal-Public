@@ -1,0 +1,9 @@
+# Latent Generative Replay (LGR) Configuration
+method: "lgr"
+description: "Generator-Root-Top architecture with latent space Conditional VAE replay"
+params:
+  replay_ratio: 0.10
+  latent_dim: 32
+  hidden_dim: 128
+  vae_epochs: 30
+  vae_lr: 0.001

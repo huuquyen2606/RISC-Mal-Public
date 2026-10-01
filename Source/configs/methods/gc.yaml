@@ -1,0 +1,10 @@
+# Generative Classifier (GC) Configuration
+method: "gc"
+description: "Class-conditional independent VAE ensemble scoring ELBO log-likelihood"
+params:
+  vae_hidden_dim: 128
+  vae_z_dim: 32
+  vae_epochs: 20
+  vae_lr: 0.001
+  vae_batch_size: 64
+  kl_weight: 1.0

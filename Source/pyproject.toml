@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "riscmal"
+version = "1.0.0"
+description = "Risk-Informed Selective Class-Incremental Learning for Imbalanced Windows Malware Detection"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Vo Dang Khoa", email = "25520883@gm.uit.edu.vn"},
+    {name = "Nguyen Minh Tri", email = "25521912@gm.uit.edu.vn"},
+    {name = "Nguyen Huu Quyen", email = "quyennh@uit.edu.vn"},
+    {name = "Pham Van-Hau", email = "haupv@uit.edu.vn"}
+]
+keywords = [
+    "continual-learning",
+    "class-incremental-learning",
+    "malware-detection",
+    "deep-learning",
+    "pytorch",
+    "class-imbalance",
+    "catastrophic-forgetting"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Security",
+]
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "numpy>=1.22.0",
+    "scipy>=1.8.0",
+    "scikit-learn>=1.0.0",
+    "pandas>=1.4.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

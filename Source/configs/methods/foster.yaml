@@ -1,0 +1,7 @@
+# FOSTER Continual Learning Strategy Configuration
+method: "foster"
+description: "Feature Boosting and Compression with dynamic column distillation"
+params:
+  replay_ratio: 0.10
+  temperature: 2.0
+  lambda_kd: 1.0

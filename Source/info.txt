@@ -1,0 +1,177 @@
+================================================================================
+                               RISC-Mal
+ Risk-Informed Selective Class-Incremental Learning for Imbalanced Windows Malware Detection
+================================================================================
+
+1. PUBLICATION & RESEARCH METADATA
+--------------------------------------------------------------------------------
+Paper Title:       Risk-Informed Selective Class-Incremental Learning for 
+                   Imbalanced Windows Malware Detection
+Running Title:     RISC-Mal for Imbalanced Windows Malware Detection
+Status:            Research Paper / Under Review
+Keywords:          Malware Detection, Class-Incremental Learning, Catastrophic 
+                   Forgetting, Class Imbalance
+
+2. AUTHORSHIP & AFFILIATIONS
+--------------------------------------------------------------------------------
+1. Vo Dang Khoa
+   Affiliation:    Information Security Laboratory, University of Information Technology, VNU-HCM
+                   Vietnam National University Ho Chi Minh City, Vietnam
+   Email:          25520883@gm.uit.edu.vn
+   ORCID:          https://orcid.org/0009-0007-2796-6920
+
+2. Nguyen Minh Tri
+   Affiliation:    Information Security Laboratory, University of Information Technology, VNU-HCM
+                   Vietnam National University Ho Chi Minh City, Vietnam
+   Email:          25521912@gm.uit.edu.vn
+   ORCID:          https://orcid.org/0009-0007-7402-096X
+
+3. Nguyen Huu Quyen
+   Affiliation:    Information Security Laboratory, University of Information Technology, VNU-HCM
+                   Vietnam National University Ho Chi Minh City, Vietnam
+   Email:          quyennh@uit.edu.vn
+   ORCID:          https://orcid.org/0000-0002-0065-9919
+
+4. Pham Van-Hau
+   Affiliation:    Information Security Laboratory, University of Information Technology, VNU-HCM
+                   Vietnam National University Ho Chi Minh City, Vietnam
+   Email:          haupv@uit.edu.vn
+   ORCID:          https://orcid.org/0000-0003-3147-3356
+
+Laboratory:        Information Security Laboratory (InSecLab)
+Institution:       University of Information Technology (UIT), Ho Chi Minh City, Vietnam
+University System: Vietnam National University Ho Chi Minh City (VNU-HCM)
+
+3. ABSTRACT
+--------------------------------------------------------------------------------
+Continual malware detection must incorporate newly emerging families without sacrificing discrimination over previously learned classes, a challenge further complicated by class imbalance and by the model growth incurred by some continual-learning strategies. We present RISC-Mal, a class-incremental malware learning framework that couples class-aware retention risk with risk-informed selective plasticity. RISC-Mal estimates the retention priority of each historical class from observed recall degradation and replay-exposure imbalance, then combines this risk with analytical classification-margin sensitivity to identify latent dimensions requiring stronger protection. A continuous protection mask selectively constrains representation drift during incremental adaptation, while the shared classifier-backbone architecture and parameter dimensionality remain unchanged and only the output head expands with the cumulative label space. We evaluate RISC-Mal on a leakage-audited three-task Windows PE benchmark against regularization, generative-replay, and dynamic-architecture baselines under a common cumulative protocol. RISC-Mal attains 86.52% and 87.60% Macro-F1 at the two incremental checkpoints. At the final task, its Macro-F1 is 2.32 percentage points below DER and numerically 0.26 points above FOSTER, while its classifier contains 27.94M parameters compared with 83.82M for DER and 55.88M for FOSTER. These results indicate a favorable empirical performance--parameter trade-off for imbalanced malware class-incremental learning without task-dependent classifier-backbone growth.
+
+4. STANDALONE SOURCE PACKAGE DIRECTORY LAYOUT
+--------------------------------------------------------------------------------
+Source/
+├── configs/            # YAML/JSON configurations for 3-task protocol and 9 CL strategies
+│   ├── methods/        # Strategy-specific hyperparameters (baseline, ewc, lwf, lgr, bir, gc, der, foster, riscmal)
+│   ├── protocol.yaml   # Benchmark execution protocol (seed 42, 3 tasks, batch size, epochs)
+│   └── task_map.json   # Task-to-class mapping and label semantics
+├── data/               # Dataset storage
+│   └── sample/         # Lightweight samples for immediate out-of-the-box verification
+├── scripts/            # CLI entry points
+│   ├── prepare_data.py       # Feature extraction, vocabulary builder, dataset preparation
+│   ├── train_incremental.py  # Incremental training pipeline across tasks
+│   ├── evaluate.py           # Multi-task checkpoint evaluation and metrics reporting
+│   ├── count_parameters.py   # Parameter footprint auditing (O(1) vs O(T))
+│   └── run_all.py            # Automated multi-method benchmark runner
+├── src/riscmal/        # Core library package (PEP 517/518 installable via `pip install -e .`)
+│   ├── backbones/      # Multi-view PE feature extractors (header, imports, conv1d, texture, sequence, fusion)
+│   ├── models/         # Classification and generative models (static, dynamic, CVAE)
+│   ├── continual/      # 9 Continual Learning strategies + registry factory
+│   ├── memory/         # Class-proportional buffer (rho=0.10) & mixed-batch sampler
+│   ├── data/           # Dataset loaders, feature parsers, and batching
+│   ├── evaluation/     # 10 classification metrics + Worst-Class Recall + tracker
+│   └── utils/          # Seeding, device placement, logging, config loaders
+├── tests/              # 100/100 passing automated pytest suite
+├── CITATION.cff        # Academic citation metadata
+├── environment.yml     # Conda environment definition
+├── LICENSE             # MIT License
+├── pyproject.toml      # Build system requirements & package metadata
+├── README.md           # Standalone source package guide (Drive-optimized)
+├── README_FOR_GITHUB.md# Clean GitHub landing README template
+├── requirements.txt    # Frozen Python dependencies
+└── info.txt            # Paper metadata, author details, and Drive archive links
+
+5. DATASET & PRETRAINED CHECKPOINTS ARCHIVE (GOOGLE DRIVE)
+--------------------------------------------------------------------------------
+In accordance with academic repository hygiene, raw malware datasets and large
+PyTorch model checkpoints (.pth) are archived separately on Google Drive:
+
+Google Drive Archive URL:
+https://drive.google.com/drive/folders/1Arlo3AgeNlxjbZZ6KBsHDaLME-gUg2mR
+
+Google Drive Archive Directory Structure:
+├── Dataset/
+│   └── Data_RISC.zip           # 804.7 MB archive containing incremental_data_v2/
+│       └── incremental_data_v2/
+│           ├── task1/          # Task 1: Benign, Locker (12 .npy files: apis, header, img_1d, img_2d, imports, labels)
+│           ├── task2/          # Task 2: Mediyes, Winwebsec (12 .npy files: apis, header, img_1d, img_2d, imports, labels)
+│           ├── task3/          # Task 3: Zbot, Zeroaccess (12 .npy files: apis, header, img_1d, img_2d, imports, labels)
+│           ├── global_api_map.pkl  # Global API vocabulary mapping
+│           ├── global_imp_map.pkl  # Global PE imports mapping
+│           └── global_scaler.pkl   # Global StandardScaler for PE headers
+├── Check_point/                # Pretrained weights (.pth) across all 9 benchmarked strategies
+│   ├── RISCMAL_S42_task1_checkpoint.pth
+│   ├── RISCMAL_S42_task2_checkpoint.pth
+│   ├── RISCMAL_S42_task3_checkpoint.pth
+│   ├── DER_S42_task1_checkpoint.pth
+│   ├── DER_S42_task2_checkpoint.pth
+│   ├── DER_S42_task3_checkpoint.pth
+│   ├── FOSTER_S42_task1_checkpoint.pth
+│   ├── FOSTER_S42_task2_checkpoint.pth
+│   ├── FOSTER_S42_task3_checkpoint.pth
+│   ├── GC_S42_task1_checkpoint.pth
+│   ├── GC_S42_task2_checkpoint.pth
+│   └── GC_S42_task3_checkpoint.pth
+└── Source/                     # Clean, standalone, verified research source package
+
+Dataset Pipeline Notes:
+1. Feature Extraction: incremental_data_v2 is generated by the offline feature extraction script
+   trichxuat2.py (from raw PE executables and Cuckoo JSON reports).
+2. Direct Consumption: Model training and evaluation (New_RISC-Mal.ipynb and scripts/train_incremental.py)
+   directly consume incremental_data_v2/.
+3. In-Memory Runtime Deduplication: The files in incremental_data_v2 store raw split arrays.
+   During training/evaluation, SHA-256 byte deduplication (purge_data_leakage()) runs dynamically
+   in memory to purge 2,444 exact train-test duplicates (35 from T1, 1,793 from T2, 616 from T3),
+   leaving the clean partitions: T1 (893 train / 395 test), T2 (2,280 train / 1,750 test),
+   and T3 (1,337 train / 835 test) with cumulative test sets of 395, 2,145, and 2,980 samples.
+
+6. BIBTEX CITATION
+--------------------------------------------------------------------------------
+@article{riscmal2026,
+  title   = {Risk-Informed Selective Class-Incremental Learning for Imbalanced Windows Malware Detection},
+  author  = {Vo, Dang Khoa and Nguyen, Minh Tri and Nguyen, Huu Quyen and Pham, Van-Hau},
+  year    = {2026}
+}
+
+7. MATHEMATICAL FORMULATION & KEY NOTATIONS (PAPER SECTION 2)
+--------------------------------------------------------------------------------
+1. Base Class-Balanced Cross-Entropy (L_CB-CE, Eq. 1):
+   L_CB-CE = - (1 / |B|) * sum_{(x_i, y_i) in B} omega_bar_{y_i} * log p(y_i | x_i)
+   omega_bar_c = |C_1| * omega_c / sum_{k in C_1} omega_k
+   omega_c = (1 - beta) / (1 - beta^{n_c}), where beta = 0.10.
+
+2. Class-Aware Retention Risk (R_c^t, Eq. 3):
+   F_c^t = max(0, max_{t_c <= tau < t} r_c^tau - r_c^{t-1})
+   E_c = (1 - beta_R^{|M_c|}) / (1 - beta_R), where beta_R = 0.999
+   I_c = 1 - E_c / max_{k in C_{<t}} E_k
+   R_c^t = alpha * F_c^t + (1 - alpha) * I_c, where alpha = 0.50
+   R_hat_c^t = Norm_{C_{<t}}(R_c^t)
+
+3. Margin Sensitivity Analysis (S_{c,j}^t, Eq. 4):
+   Margin: gamma_c(x) = s_c(x) - max_{k != c} s_k(x)
+   Analytical gradient: d gamma_c(x) / d h = W_c - W_{k*(x)}
+   S_{c,j}^t = (1 / |M_c|) * sum_{x in M_c} | d gamma_c(x) / d h_j |
+
+4. Continuous Soft Protection Mask (m^t, Eq. 4):
+   P_j^t = sum_{c in C_{<t}} R_hat_c^t * S_{c,j}^t
+   P_hat_j^t = Norm_{\{1, ..., d\}}(P_j^t)
+   m_j^t = sigma((P_hat_j^t - tau_p) / T_p), where tau_p = 0.80, T_p = 0.20
+   Vector mask: m^t = [m_1^t, ..., m_d^t] in (0, 1)^d. Zero occurrences of symbol q.
+
+5. Selective Representation Preservation Loss (L_SP, Eq. 5):
+   L_SP = (1 / |B_replay|) * sum_{x in B_replay} || m^t (.) [f_{theta_t}(x) - f_{theta_{t-1}}(x)] ||_2^2
+
+6. Incremental Classification Loss (L_IC, Eq. 7):
+   L_IC = - (1 / |B_mixed|) * sum_{(x_i, y_i) in B_mixed} omega_bar_{y_i, t} * log p_t(y_i | x_i)
+   omega_{c,t} = (1 - beta) / (1 - beta^{n_{c,t}^avail}), with beta = 0.10.
+
+7. Knowledge Distillation Loss (L_KD, Eq. 8):
+   L_KD = T_KD^2 * |B_replay|^{-1} * sum_{x in B_replay} D_KL( p_{t-1}^{(T_KD)}(. | x) || p_t^{(T_KD)}(. | x) )
+   with T_KD = 2.0 (T_KD^2 = 4.0).
+
+8. Full Incremental Objective (L_RISC, Eq. 9):
+   L_RISC = L_IC + lambda_SP * L_SP + lambda_KD * L_KD
+   with lambda_SP = 0.10, lambda_KD = 0.10.
+
+9. Norm-Matched Output Head Expansion (Eq. 6):
+   W_t^new[k, :] = r_bar_t * (w_tilde_k / ||w_tilde_k||_2)
+   r_bar_t = (1 / |C_{<t}|) * sum_{c in C_{<t}} ||W_{t-1}[c, :]||_2
+

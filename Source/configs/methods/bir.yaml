@@ -1,0 +1,9 @@
+# Brain-Inspired Replay (BI-R) Configuration
+method: "bir"
+description: "Brain-Inspired generative replay with expanding GMM prior and feature distillation"
+params:
+  replay_ratio: 0.10
+  temperature_distill: 2.0
+  lambda_distill: 1.0
+  cvae_epochs: 20
+  cvae_lr: 0.001

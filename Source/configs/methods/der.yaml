@@ -1,0 +1,5 @@
+# Dynamically Expandable Representation (DER) Configuration
+method: "der"
+description: "Multi-column architecture allocating new feature columns per task with auxiliary classifier"
+params:
+  replay_ratio: 0.10
